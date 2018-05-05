@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.desk.DeskMapper">
+	<select id="getDesks" resultType="Desk" >
+		select deskCode,peopleNum,status,id from desk
+	</select>
+	<update id="updateDeskStatus" parameterType="Desk">
+		update desk
+		set
+		status=#{status} where id=#{id}
+	</update>
+	<update id="updateDesk" parameterType="Desk">
+		update desk
+		<trim prefix="set" suffixOverrides=",">
+			<if test="deskCode!=null and deskCode!=''">
+				deskCode=#{deskCode},
+			</if>
+			<if test="status!=null and status!=0">
+				status=#{status},
+			</if>
+			<if test="peopleNum!=null">
+				peopleNum=#{peopleNum},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+	
+	<select id="getDeskById" resultType="Desk"  parameterType="String">
+		select * from desk where id=#{id}
+	</select>
+
+	<select id="isExist" parameterType="String" resultType="int">
+		select count(1) from desk where deskCode=#{deskCode}
+	</select>
+
+	<insert id="addDesk"  parameterType="Desk">
+		insert into desk(deskCode,status,peopleNum) value(#{deskCode},1,0)
+	</insert>
+
+	<select id="getDesksByPager" resultType="Desk" parameterType="DeskPager">
+		select deskCode,peopleNum,status,id from desk
+		<if test="serchDeskCode!=null and serchDeskCode!=''">
+			where deskCode like concat("%",#{serchDeskCode},"%")
+		</if>
+		limit #{firstData},#{pageSize}
+	</select>
+
+	<select id="getTotalCount" resultType="int" parameterType="DeskPager">
+		select count(1) from desk
+		<if test="serchDeskCode!=null and serchDeskCode!=''">
+			where deskCode like concat("%",#{serchDeskCode},"%")
+		</if>
+	</select>
+
+	<delete id="delDesk" parameterType="String">
+		delete from desk where id=#{id}
+	</delete>
+
+</mapper>

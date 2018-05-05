@@ -1,0 +1,362 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://"
+            + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <base href="<%=basePath%>">
+
+    <title>日常维护</title>
+
+    <link rel="stylesheet" type="text/css" href="jsp/assets/css/daily.css">
+
+</head>
+
+<body>
+<!-- 头文件 -->
+<%@ include file="../command/head.jsp" %>
+<!-- /头文件 -->
+<input type="hidden" id="path" path="${pageContext.request.contextPath}"/>
+<!-- 标题 -->
+<div class="row">
+    <div class="col-lg-12">
+    </div>
+</div>
+<hr/>
+<!-- /标题 -->
+
+<!-- 主体 -->
+<div class="col-lg-12 dailybody" style="display: none;">
+
+    <!-- 一级菜单 -->
+    <div class="col-lg-2" id="dishMenu0">
+        <div class="row text-center pad-top">
+            <div class="col-lg-12">
+                <div class="div-square weihu" id="dishMenu2">
+                    <a href="javascript:;"><i class="fa fa-clipboard fa-5x"></i>
+                        <h4>菜单维护</h4></a>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center pad-top">
+            <div class="col-lg-12">
+                <div class="div-square weihu" id="dishMenu1">
+                    <a href="javascript:;"><i class="fa fa-circle-o-notch fa-5x"></i>
+                        <h4>桌位维护</h4></a>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center pad-top">
+            <div class="col-lg-12">
+                <div class="div-square weihu" id="dishMenu3">
+                    <a href="javascript:;"><i class="fa fa-user fa-5x"></i>
+                        <h4>账号维护</h4></a>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center pad-top">
+            <div class="col-lg-12">
+                <div class="div-square weihu" id="dishMenu4">
+                    <a href="javascript:;"><i class="fa fa-bell-o fa-5x"></i>
+                        <h4>供应商维护</h4></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /一级菜单 -->
+
+    <!-- 二级菜单 -->
+
+    <!-- 菜单维护 -->
+    <div class="col-lg-10" id="dishMenu20">
+        <div class="row text-center pad-top">
+            <div class="div-square" style="height: 600px">
+                <div class="col-lg-3">
+                    <div class="row text-center pad-top" id="dishMenu21">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu">
+                                <a href="javascript:;" class="showDddDishBtn"><h4>添加菜品</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pad-top" id="dishMenu22">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu">
+                                <a href="javascript:;" id="showDelBtn"><h4>删除菜品</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-collapse col-lg-8">
+                    <!-- 添加菜品 -->
+                    <%@ include file="dish/addDish.jsp" %>
+                    <!-- 删除菜品 -->
+                    <br>
+                    <%@include file="dish/delDish.jsp" %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /菜单维护 -->
+
+    <!-- 桌位维护 -->
+    <div class="col-lg-10 " id="dishMenu10" style="display:none">
+        <div class="row text-center pad-top">
+            <div class="div-square" style="height: 600px">
+                <div class="col-lg-3">
+                    <div class="row text-center pad-top" id="dishMenu11">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu" id="dishMenu2-1">
+                                <a href="javascript:;"><h4>添加桌位</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pad-top" id="dishMenu12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu" id="showDeskList">
+                                <a href="javascript:;"><h4>查看桌位</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-collapse col-lg-8">
+                    <!-- 添加桌位 -->
+                    <div class="div-square" id="dishMenu111">
+                        <%@include file="desk/addDesk.jsp" %>
+                    </div>
+                    <!-- 删除桌位 -->
+                    <br>
+                    <div class="div-square" id="dishMenu112" style="display:none">
+                        <div class="input-group">
+                            <input type="text" class="form-control col-lg-10" name="serchDeskCode" id="serchDeskCode"
+                                   placeholder="请输入桌位编号"/> <a href="javascript:;"
+                                                              class="input-group-addon" id="searchDesk">查找桌位</a>
+                        </div>
+                        <div class="col-lg-12" id="searchTabResult">
+                            <%@include file="desk/deskList.jsp" %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /桌位维护 -->
+
+    <!-- 账号维护 -->
+    <div class="col-lg-10 " id="dishMenu30" style="display:none">
+        <div class="row text-center pad-top">
+            <div class="div-square" style="height: 600px">
+                <div class="col-lg-3">
+                    <div class="row text-center pad-top" id="dishMenu31">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu" id="dishMenu2-1">
+                                <a href="javascript:;"><h4>添加账号</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pad-top" id="dishMenu33">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu">
+                                <a href="javascript:;"><h4>更改账号</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pad-top" id="dishMenu34">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu">
+                                <a href="javascript:;"><h4>查看账号</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-collapse col-lg-8">
+                    <!-- 添加账号 -->
+                    <div class="div-square" id="dishMenu311">
+                        <%@include file="user/addUser.jsp" %>
+                    </div>
+                    <!-- 更改账号 -->
+                    <br>
+                    <div class="div-square" id="dishMenu313" style="display:none">
+                        <%@include file="user/updateUser.jsp" %>
+                    </div>
+                    <!-- 查看用户 -->
+                    <div class="div-square" id="dishMenu314" style="display:none">
+                        <div class="input-group">
+                            <input type="text" class="form-control col-lg-10"
+                                   placeholder="请输入桌位编号"/> <a href="javascript:;"
+                                                              class="input-group-addon">查找用户</a>
+                        </div>
+                        <br/>
+                        <%@include file="user/userList.jsp" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /账号维护 -->
+
+    <!-- 供应商维护 -->
+    <div class="col-lg-10 " id="dishMenu40" style="display:none">
+        <div class="row text-center pad-top">
+            <div class="div-square" style="height: 600px">
+                <div class="col-lg-3">
+                    <div class="row text-center pad-top" id="dishMenu41">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu" id="dishMenu2-1">
+                                <a href="javascript:;"><h4>添加供应商</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pad-top" id="dishMenu42">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu">
+                                <a href="javascript:;"><h4>删除供应商</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pad-top" id="dishMenu43">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu">
+                                <a href="javascript:;"><h4>更改供应商</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center pad-top" id="dishMenu44">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="div-square weihu">
+                                <a href="javascript:;"><h4>查看供应商</h4></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-collapse col-lg-8">
+                    <!-- 添加供应商 -->
+                    <div class="div-square" id="dishMenu411">
+                        <%@include file="provider/addProvider.jsp"%>
+                    </div>
+                    <br>
+                    <div class="div-square" id="dishMenu412" style="display:none">
+                        <div class="input-group">
+                            <input type="text" class="form-control col-lg-10"
+                                   placeholder="请输入供应商编号或名称"/> <a href="#"
+                                                                  class="input-group-addon"
+                                                                  id="searchGongying">查找供应商</a>
+                        </div>
+                        <div class="col-lg-12" style="display:none"
+                             id="searchGongyingResult">
+                            <div class="col-lg-12">
+                                <br>
+                                <h3>查询结果</h3>
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>厂商编号</th>
+                                        <th>厂商名称</th>
+                                        <th>厂商类型</th>
+                                        <th>厂商地址</th>
+                                        <th>厂商电话</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>空</td>
+                                        <td>空</td>
+                                        <td>空</td>
+                                        <td>空</td>
+                                        <td>空</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-12">
+                                <br> <a href="#" class="btn btn-danger btn-lg btn-block"
+                                        id="delDish" id="delGongying">删除供应商</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 更改供应商 -->
+                    <br>
+                    <div class="div-square" id="dishMenu413" style="display:none">
+                        <div class="input-group">
+                            <input type="text" class="form-control col-lg-10"
+                                   placeholder="请输入供应商编号或名称"/> <a href="#"
+                                                                  class="input-group-addon"
+                                                                  id="searchGongying1">查找供应商</a>
+                        </div>
+                        <div class="col-lg-12" style="display:none" id="changeGongying">
+                            <div class="col-lg-12">
+                                <br>
+                                <h3>查询结果</h3>
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>厂商编号</th>
+                                        <th>厂商名称</th>
+                                        <th>厂商类型</th>
+                                        <th>厂商地址</th>
+                                        <th>厂商电话</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>空</td>
+                                        <td>空</td>
+                                        <td>空</td>
+                                        <td>空</td>
+                                        <td>空</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 查看供应商 -->
+                    <br>
+                    <div class="" id="dishMenu414" style="display:none">
+                        <div class="col-lg-12">
+                            <ul class="nav nav-tabs ">
+                                <h5>查看供应商</h5>
+                                <li class="active"><a href="#all" data-toggle="tab">全部</a></li>
+                                <li><a href="#soup" data-toggle="tab">汤类</a></li>
+                                <li><a href="#fry" data-toggle="tab">炒菜</a></li>
+                                <li><a href="#drink" data-toggle="tab">酒水</a></li>
+                                <li><a href="#other" data-toggle="tab">其它</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /供应商维护 -->
+
+    <!-- /二级菜单 -->
+
+</div>
+<!-- /主体 -->
+
+<!-- 尾文件 -->
+<%@ include file="../command/foot.jsp" %>
+<!-- 尾文件 -->
+<script type="text/javascript"
+        src="${pageContext.request.contextPath }/assets/js/daily.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath }/assets/js/ajaxfileupload.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath }/assets/js/dishDo.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath }/assets/js/deskDo.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath }/assets/js/userDo.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".dailybody").slideDown(500);
+    })
+</script>
+
+</body>
+</html>

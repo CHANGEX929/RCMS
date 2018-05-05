@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.bill.DeskBillMapper">
+    <insert id="addDeskBill" parameterType="DeskBill">
+        <selectKey keyProperty="id" order="AFTER" resultType="Integer"
+                   keyColumn="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO mydiningroom.deskbill
+        (
+        deskID,
+        billCode,
+        totalMoney,
+        peopleNum,
+        discount,
+        createDate,
+        debtor,
+        payType,
+        beforeMoney,
+        deskCode
+        )
+        VALUES
+        (
+        #{deskId},
+        #{billCode},
+        #{totalMoney},
+        #{peopleNum},
+        #{discount},
+        now(),
+        #{debtor},
+        #{payType},
+        #{beforeMoney},
+        #{deskCode}
+        );
+    </insert>
+
+    <insert id="addDeskBillDetail" parameterType="DeskInfo_detail">
+		INSERT INTO
+		mydiningroom.deskbill_detail
+		(
+		deskBillID,
+		dishName,
+		dishNum,
+		cost,
+		content,
+		price
+		)
+		VALUES
+		(
+		#{deskBillId},
+		#{dishName},
+		#{dishNum},
+		#{cost},
+		#{content},
+		#{price}
+		);
+	</insert>
+
+
+    <select id="getCount" resultType="int" parameterType="Date">
+		SELECT
+		count(1) FROM deskbill,desk
+		WHERE desk.id=deskbill.deskid
+		and
+		TO_DAYS(createDate) = TO_DAYS(#{date})
+	</select>
+
+    <select id="getDekBills" resultType="Deskbill" parameterType="DeskBillPager">
+        SELECT * FROM deskbill/*,desk*/
+       /* WHERE desk.id=deskbill.deskid*/
+        where
+        TO_DAYS(createDate) = TO_DAYS(#{billDate})
+        limit
+        <if test="firstData!=null">
+            #{firstData},
+        </if>
+        <if test="firstData==null">
+            0,
+        </if>
+        #{pageSize}
+
+    </select>
+
+
+    <select id="getDeskInfo_detailByDeskBillId" parameterType="int"
+            resultType="DeskInfo_detail">
+		SELECT id,
+		deskBillID,
+		dishName,
+		dishNum,
+		cost,
+		content,
+		price
+		FROM
+		mydiningroom.deskbill_detail WHERE
+		deskBillID=#{id}
+	</select>
+
+    <select id="getBillSummaryCount" parameterType="BillSummaryPager"
+            resultType="int">
+        SELECT COUNT(1) FROM
+        (SELECT 1
+        FROM deskbill
+        where 1=1
+        <if test="opr=='serch'">
+            AND DATE(createDate) BETWEEN DATE(#{beginDate}) AND
+            DATE(#{endDate})
+        </if>
+        GROUP BY
+        <if test="opr!='month' and opr!='year'">DATE(createDate)</if>
+        <if test="opr=='month'">month(createDate)</if>
+        <if test="opr=='year'">year(createDate)</if>
+        ) a
+    </select>
+
+
+    <sql id="date">
+        DATE(a.createdate)=DATE(b.createdate)
+    </sql>
+    <sql id="month">
+        month(a.createdate)=month(b.createdate)
+    </sql>
+    <sql id="year">
+        year(a.createdate)=year(b.createdate)
+    </sql>
+
+    <select id="getBillSummarys" parameterType="BillSummaryPager"
+            resultType="BillSummary">
+        <!-- 默认查询每天的 -->
+        SELECT
+        todayDate,
+        totalCount,
+        mobilePay,
+        debtorMoney,
+        cash,
+        bybank,
+        realMoney,
+        discountMoney,
+        (realMoney-IF(debtorMoney IS
+        NULL,0,debtorMoney)-IF(discountMoney IS
+        NULL ,0,discountMoney)) AS
+        totalMoney
+        FROM
+        (
+        SELECT DISTINCT createDate AS
+        todayDate ,COUNT(1) AS
+        totalCount,
+        (SELECT SUM(totalMoney) FROM
+        deskbill b WHERE
+        <if test="opr!='month' and opr!='year'"><include refid="date"></include></if>
+        <if test="opr=='month'"><include refid="month"></include></if>
+        <if test="opr=='year'"><include refid="year"></include></if>
+        AND b.payType
+        IN(1,2) )
+        AS
+        mobilePay,
+        (SELECT SUM(totalMoney) FROM deskbill b WHERE
+        <if test="opr!='month' and opr!='year'"><include refid="date"></include></if>
+        <if test="opr=='month'"><include refid="month"></include></if>
+        <if test="opr=='year'"><include refid="year"></include></if>
+        AND b.payType IN(3) )
+        AS byBank,
+        (SELECT SUM(totalMoney) FROM deskbill b WHERE
+        <if test="opr!='month' and opr!='year'"><include refid="date"></include></if>
+        <if test="opr=='month'"><include refid="month"></include></if>
+        <if test="opr=='year'"><include refid="year"></include></if>
+        AND b.payType IN(5) )
+        AS
+        debtorMoney,
+        (SELECT SUM(totalMoney) FROM deskbill b WHERE
+        <if test="opr!='month' and opr!='year'"><include refid="date"></include></if>
+        <if test="opr=='month'"><include refid="month"></include></if>
+        <if test="opr=='year'"><include refid="year"></include></if>
+        AND b.payType IN(4) )
+        AS cash,
+        (SELECT SUM(beforeMoney) FROM deskbill b WHERE
+        <if test="opr!='month' and opr!='year'"><include refid="date"></include></if>
+        <if test="opr=='month'"><include refid="month"></include></if>
+        <if test="opr=='year'"><include refid="year"></include></if>
+        )
+        AS realMoney,
+        (SELECT
+        SUM(beforeMoney)-SUM(totalMoney) FROM deskbill b WHERE
+        <if test="opr!='month' and opr!='year'"><include refid="date"></include></if>
+        <if test="opr=='month'"><include refid="month"></include></if>
+        <if test="opr=='year'"><include refid="year"></include></if>
+        )
+        AS discountMoney
+        FROM deskbill a
+        WHERE 1=1
+        <if test="opr=='dateChart'">
+            AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;=
+            DATE(createDate)
+        </if>
+        <if test="opr=='today'">
+            and DATE(a.createDate) = DATE(NOW())
+        </if>
+        <if test="opr=='otherday'">
+            and DATE(a.createDate) = DATE(#{othDate})
+        </if>
+        <if test="opr=='serch'">
+            <!-- 填写了开始时间和结束时间 -->
+            <if test="beginDate!=null and  endDate!=null">
+                AND DATE(createDate) BETWEEN DATE(#{beginDate}) AND
+                DATE(#{endDate})
+            </if>
+        </if>
+        <if test="opr!='month' and opr!='year'">
+            GROUP BY DATE(createDate)
+        </if>
+        <if test="opr=='month'">GROUP BY month(createDate)</if>
+        <if test="opr=='year'">GROUP BY year(createDate)</if>
+        ) a
+        <if test="opr!='month' and opr!='year'">
+            ORDER BY todayDate
+        </if>
+        <if test="opr=='month'">
+            ORDER BY month(todayDate)
+        </if>
+        <if test="opr=='year'"> ORDER BY year(todayDate)</if>
+        <if test="opr=='dateChart' ">
+            LIMIT 0,30
+        </if>
+        <if test="opr!='dateChart' and opr!='serch' and opr!='month' and opr!='year' ">
+            DESC
+            LIMIT #{firstData},#{pageSize}
+        </if>
+        <if test="opr=='month' or opr=='year' ">
+            LIMIT #{firstData},#{pageSize}
+        </if>
+        <if test="opr=='serch'">
+            LIMIT #{firstData},#{pageSize}
+        </if>
+    </select>
+
+
+    <update id="sellDrink">
+        UPDATE drink_sell_bill
+        SET sellCount=sellCount+${count}
+        WHERE drinkbillCode=#{drinkBillCode}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 关联配置文件 -->
+	<properties resource="database.properties">
+	</properties>
+	<settings>
+		<!--<setting name="logImpl" value="LOG4J"/>-->
+		<setting name="autoMappingBehavior" value="FULL"/>
+	</settings>
+	<!-- 为所有实体类设置别名 -->
+	<typeAliases>
+		<package name="pojo"/>
+	</typeAliases>
+	<!-- 配置环境 -->
+	<!-- 	<environments default="development">
+            <environment id="development">
+                <transactionManager type="JDBC" />
+                <dataSource type="POOLED">
+                    <property name="driver" value="${driver}" />
+                    <property name="url" value="${url}" />
+                    <property name="username" value="${user}" />
+                    <property name="password" value="${psw}" />
+                </dataSource>
+            </environment>
+
+                <environment id="as">
+                <transactionManager type="JDBC" />
+                <dataSource type="POOLED">
+                    <property name="driver" value="${driver}" />
+                    <property name="url" value="${url}" />
+                    <property name="username" value="${user}" />
+                    <property name="password" value="${psw}" />
+                </dataSource>
+            </environment>
+        </environments> -->
+	<!-- 关联包内所有mapper -->
+	<!-- <mappers>
+	<package name="mapper"/>
+	</mappers> -->
+</configuration>

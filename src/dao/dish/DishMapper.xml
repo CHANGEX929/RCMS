@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.dish.DishMapper">
+    <select id="getDish" resultType="Dish">
+		select * from dish
+	</select>
+
+    <select id="getDishById" resultType="Dish" parameterType="String">
+		select * from dish where id = #{id}
+	</select>
+
+	<select id="isExist" parameterType="String" resultType="int">
+		select count(1) from dish where dishName = #{dishName}
+	</select>
+
+    <insert id="addDish" parameterType="Dish">
+	   INSERT INTO mydiningroom.dish
+	(dishName,
+	price,
+	TYPE,
+	stock,
+	fileName,
+	drinkBillCode
+	)
+	VALUES
+	(#{dishName},
+	#{price},
+	#{type},
+	#{stock},
+	#{fileName},
+	#{drinkBillCode}
+	);
+	</insert>
+
+	<delete id="delDishById" parameterType="String">
+		delete from dish where id=#{id}
+	</delete>
+
+</mapper>

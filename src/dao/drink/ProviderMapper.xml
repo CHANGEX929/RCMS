@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.drink.ProviderMapper">
+    <select id="getProvider" resultType="Provider">
+		SELECT 	id,
+		proName,
+		product,
+		telNumber,
+		address,
+		contact,
+		phone,
+		remark,
+		createDate
+		FROM
+		mydiningroom.provider
+	</select>
+
+    <select id="getDrinkBill" parameterType="DrinkBillPager" resultType="DrinkBill">
+        SELECT drinkbill.id,
+        proName,
+        drinbillCode,
+        productName,
+        proCount,
+        drinkbill.remark,
+        unit,
+        drinkbill.createDate,
+        drinkbill.createBy,
+        providerID,
+        totalCost,
+        price,
+        isPay
+        FROM
+        mydiningroom.drinkbill,provider
+        <trim prefix="where" prefixOverrides="and">
+            and provider.id=providerId
+            <if test="providerId!=null and providerId!=0">
+                and providerId=#{providerId}
+            </if>
+            <if test="productName!=null and productName!=''">
+                and productName like concat("%",#{productName},"%")
+            </if>
+        </trim>
+        order By createDate desc
+        LIMIT #{firstData}, #{pageSize}
+    </select>
+    <select id="getDrinkBillCount" resultType="int" parameterType="DrinkBillPager">
+        select count(1) from drinkbill
+        <trim prefix="where" prefixOverrides="and">
+            <if test="providerId!=null and providerId!=0">
+                and providerId=#{providerId}
+            </if>
+            <if test="productName!=null and productName!=''">
+                and productName like concat("%",#{productName},"%")
+            </if>
+        </trim>
+    </select>
+
+    <delete id="delDrinkBill" parameterType="String">
+		delete from drinkbill where id=#{id}
+	</delete>
+
+    <update id="updateDrinkBill" parameterType="DrinkBill">
+        UPDATE mydiningroom.drinkbill
+        <trim prefix="set" suffixOverrides=",">
+            <if test="drinbillCode!=null and drinbillCode!=''">drinbillCode = #{drinbillCode} ,</if>
+            <if test="productName!=null and productName!=''">productName = #{productName} ,</if>
+            <if test="proCount!=null and proCount!=0">proCount = #{proCount} ,</if>
+            <if test="remark!=null and remark!=''">remark = #{remark} ,</if>
+            <if test="unit!=null and unit!=''">unit = #{unit} ,</if>
+            <if test="isPay!=null and isPay!=0">isPay = #{isPay},</if>
+        </trim>
+        WHERE
+        id = #{id} ;
+    </update>
+
+
+    <insert id="addDrinkBill" parameterType="DrinkBill">
+        <selectKey resultType="int" keyColumn="id" keyProperty="id" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO mydiningroom.drinkbill
+        (drinbillCode,
+        productName,
+        proCount,
+        remark,
+        unit,
+        createDate,
+        createBy,
+        providerID,
+        totalCost,
+        price,
+        isPay
+        )
+        VALUES
+        (#{drinbillCode},
+        #{productName},
+        #{proCount},
+        #{remark},
+        #{unit},
+        now(),
+        #{createBy},
+        #{providerId},
+        #{totalCost},
+        #{price},
+        #{isPay}
+        );
+    </insert>
+
+    <insert id="addDrinkSellBill" parameterType="DrinkSellBill">
+		INSERT INTO mydiningroom.drink_sell_bill
+			(
+			drinkbillID,
+			sellCount,
+			sellPrice,
+			DrinkBillCode
+			)
+			VALUES
+			(
+			#{drinkbillId},
+			0,
+			#{sellPrice},
+			#{drinkBillCode}
+			);
+	</insert>
+
+    <select id="getDrinkSellBill" parameterType="DrinkBillPager" resultType="DrinkSellBill">
+        SELECT drink_sell_bill.id,
+        drinkbillID,
+        sellCount,
+        sellPrice,
+        drink_sell_bill.DrinkBillCode,
+        productName
+        FROM
+        mydiningroom.drink_sell_bill ,drinkbill,provider
+        WHERE drinkbill.drinbillCode=drink_sell_bill.DrinkBillCode
+        and drinkbill.providerId=provider.id
+        <if test="providerId!=null and providerId!=0">
+            and provider.id=#{providerId}
+        </if>
+        <if test="productName!=null and productName!=''">
+            and productName like concat("%",#{productName},"%")
+        </if>
+        order By drinkbill.createDate desc
+        LIMIT #{firstData}, #{pageSize}
+    </select>
+
+    <select id="getDrinkSellBillCount" parameterType="DrinkBillPager" resultType="int">
+        select count(1) from drink_sell_bill,provider,drinkbill where
+        drinkbill.drinbillCode=drink_sell_bill.DrinkBillCode
+        and drinkbill.providerId=provider.id
+        <if test="providerId!=null and providerId!=0">
+            and provider.id=#{providerId}
+        </if>
+        <if test="providerId!=null and providerId!=0">
+            and providerId=#{providerId}
+        </if>
+        <if test="productName!=null and productName!=''">
+            and productName like concat("%",#{productName},"%")
+        </if>
+    </select>
+
+    <delete id="delDrinkSellBill" parameterType="String">
+        delete from drink_sell_bill where id=#{id}
+    </delete>
+
+    <select id="getSuplusDrinkBill" resultMap="supLusDrinkBillMap" parameterType="DrinkBillPager">
+        SELECT
+        a.id as drinkBillid,
+        b.id as drink_sell_billID,
+        a.productName,
+        proCount,
+        unit,
+        b.drinkbillCode ,
+        sellCount,
+        a.proCount-b.sellCount AS suplusCount,
+        sellPrice
+        FROM
+        drinkbill a,drink_sell_bill b,provider c
+        WHERE
+        a.providerID=c.id AND b.DrinkBillCode=a.drinbillCode
+        <if test="providerId!=null and providerId!=0">
+            and c.id=#{providerId}
+        </if>
+        <if test="productName!=null and productName!=''">
+            and productName like concat("%",#{productName},"%")
+        </if>
+        order By a.createDate desc
+        LIMIT #{firstData}, #{pageSize}
+    </select>
+    <resultMap id="supLusDrinkBillMap" type="SuplusDrinkBill">
+        <id column="drinkBillid" property="id"></id>
+        <association property="drinkBill" javaType="DrinkBill">
+            <id property="id" column="drinkBillid"></id>
+            <result column="unit" property="unit"></result>
+            <result column="proCount" property="proCount"></result>
+            <result column="productName" property="productName"></result>
+            <result column="drinkbillCode" property="drinbillCode"></result>
+            <result column="proCount" property="proCount"></result>
+        </association>
+        <association property="drinkSellBill" javaType="DrinkSellBill">
+            <id property="id" column="drink_sell_billID"></id>
+            <result column="sellCount" property="sellCount"></result>
+            <result column="sellPrice" property="sellPrice"></result>
+        </association>
+    </resultMap>
+
+    <insert id="addProvider" parameterType="Provider">
+        INSERT INTO mydiningroom.provider
+            (
+            proName,
+            product,
+            telNumber,
+            address,
+            contact,
+            phone,
+            remark,
+            createDate
+            )
+            VALUES
+            (
+            #{proName},
+            #{product},
+            #{telNumber},
+            #{address},
+            #{contact},
+            #{phone},
+            #{remark},
+            now()
+            );
+    </insert>
+
+</mapper>

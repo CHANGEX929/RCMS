@@ -1,0 +1,27 @@
+#jinhuo{
+	padding: 10px 100px 10px 350px;
+	
+}
+input[type=text],input[type=number],input[type=datetime-local],textarea{
+	padding-left: 10px;
+	display:flex
+}
+input[type=button]{
+	margin-left: 20px;
+}
+input[type=submit]{
+	margin-left: 260px;
+}
+/* .jinhuo{
+	margin-left:300px; 
+} */
+.jinhuojilu{
+	display: none;
+}
+.xiaoshou{
+	display: none;
+}
+.shengyu{
+	display: none;
+}
+

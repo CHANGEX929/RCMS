@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+           http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+           ">
+
+	<context:component-scan base-package="controller,dao,service,tools"></context:component-scan>
+	<mvc:annotation-driven  conversion-service="myConversionService">
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="application/json;charset=utf-8"></property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="favorParameter" value="true"></property>
+		<property name="defaultContentType" value="text/html"></property>
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html;charset=utf-8"></entry>
+				<entry key="json" value="application/json;chartset=utf-8"></entry>
+				<entry key="xml" value="application/xml;charset=utf-8"></entry>
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<!-- 视图解析器 -->
+				<bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="prefix" value="/WEB-INF/jsp/"></property>
+					<property name="suffix" value=".jsp"></property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<mvc:resources location="/assets/" mapping="/assets/**"></mvc:resources>
+
+	<!-- 配置MultipartResolver解析器用于文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000"></property>
+		<property name="defaultEncoding" value="utf-8"></property>
+	</bean>
+
+	<!-- 日期数据转换器 -->
+	<bean id="myConversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<bean class="tools.DateConverter">
+				<constructor-arg type="java.lang.String" value="yyyy-MM-dd"></constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	<bean id="theLogger" class="tools.AdviceLog"></bean>
+	<aop:config >
+		<aop:pointcut id="pointcut" expression="execution(* controller..*.*(..))"></aop:pointcut>
+		<aop:aspect ref="theLogger">
+			<aop:before method="before" pointcut-ref="pointcut"></aop:before>
+			<aop:after-returning method="afterReturning" pointcut-ref="pointcut"></aop:after-returning>
+		</aop:aspect>
+	</aop:config>
+</beans>
