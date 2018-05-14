@@ -30,6 +30,9 @@
 2.在电脑内下载`redis`并注册成服务自动启动<br>
 3.更改`resources`内`database.properties`数据库配置文件的账号密码为自己的数据库账号密码<br>
 4.更改`redis-context.xml`配置文件，如果redis没有设置密码则把`p:password="${redis.password}"` 这个属性删除，否则在`redis.properties`配置文件内把密码更改成自己的密码<br>
-`注意：在导入项目后resources文件夹可能不是源文件夹，需要将其标记为源文件夹`
+`注意：在导入项目后resources文件夹可能不是源文件夹，需要将其标记为源文件夹`<br>
+
+<br><br><br>
+本系统将不定时更新 O(∩_∩)O…………
 
 
