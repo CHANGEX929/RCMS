@@ -97,6 +97,6 @@
 </div>
 <script type="text/javascript">
 	$(".deskBillbody").slideDown(200);
-	$("#pager").slideDown(100);
+    $("#pager").slideDown(100);
 </script>
 <!-- /row -->
