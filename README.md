@@ -37,7 +37,8 @@
 
 部分效果图
 --
-* ![](C:\Users\CHANGEX\Desktop/gif.gif) 
+加载略慢~<br>
+* ![img]() 
 
 
 <br><br><br>
