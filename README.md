@@ -38,7 +38,7 @@
 部分效果图
 --
 加载略慢~<br>
-* ![img](https://github.com/CHANGEX929/RCMS/show.gif) 
+* ![img](https://github.com/CHANGEX929/RCMS/blob/master/show.gif) 
 
 
 <br><br><br>
