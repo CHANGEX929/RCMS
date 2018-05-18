@@ -1,5 +1,7 @@
 package pojo;
 
+import java.util.Date;
+
 /**
  * User entity. @author MyEclipse Persistence Tools
  */
@@ -14,6 +16,7 @@ public class User implements java.io.Serializable {
 	private String userPassWord;
 	private String phone;
 	private String identity;
+	private Date createDate;
 
 	// Constructors
 
@@ -38,6 +41,14 @@ public class User implements java.io.Serializable {
 	}
 
 	// Property accessors
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
 	public Integer getId() {
 		return this.id;

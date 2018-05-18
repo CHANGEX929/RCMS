@@ -158,16 +158,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row text-center pad-top" id="dishMenu33">
+            <%--        <div class="row text-center pad-top" id="dishMenu33">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="div-square weihu">
                                 <a href="javascript:;"><h4>更改账号</h4></a>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="row text-center pad-top" id="dishMenu34">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="div-square weihu">
+                            <div class="div-square showUserListMenuBtn weihu">
                                 <a href="javascript:;"><h4>查看账号</h4></a>
                             </div>
                         </div>
@@ -180,18 +180,20 @@
                     </div>
                     <!-- 更改账号 -->
                     <br>
-                    <div class="div-square" id="dishMenu313" style="display:none">
-                        <%@include file="user/updateUser.jsp" %>
+                    <div class="div-square updateUserDiv"  id="dishMenu313" style="display:none">
+                       <%-- <%@include file="user/updateUser.jsp" %>--%>
                     </div>
                     <!-- 查看用户 -->
                     <div class="div-square" id="dishMenu314" style="display:none">
                         <div class="input-group">
-                            <input type="text" class="form-control col-lg-10"
-                                   placeholder="请输入桌位编号"/> <a href="javascript:;"
-                                                              class="input-group-addon">查找用户</a>
+                            <input type="text" id="userSerchName" class="form-control col-lg-10"
+                                   placeholder="请用户账号或用户姓名"/> <a href="javascript:;"
+                                                              class="input-group-addon serchUserBtn">查找用户</a>
                         </div>
                         <br/>
-                        <%@include file="user/userList.jsp" %>
+                        <div id="userListDiv">
+
+                        </div>
                     </div>
                 </div>
             </div>

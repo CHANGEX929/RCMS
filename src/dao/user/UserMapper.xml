@@ -29,4 +29,44 @@
 			now()
 			);
 	</insert>
+
+	<select id="showUserList" parameterType="Pager" resultType="User">
+		select * from user where 1=1
+			<if test="opr=='serchUser'">
+			    and userCode LIKE CONCAT('%',#{userSerchName},'%')
+				OR userName LIKE CONCAT('%',#{userSerchName},'%')
+			</if>
+			<if test="userId!=0">
+				and id=#{userId}
+			</if>
+		limit #{firstData},#{pageSize}
+	</select>
+
+	<select id="getTotalCount" parameterType="Pager" resultType="int">
+		select count(1) from user where 1=1
+		<if test="opr=='serchUser'">
+			and userCode LIKE CONCAT('%',#{userSerchName},'%')
+			OR userName LIKE CONCAT('%',#{userSerchName},'%')
+		</if>
+		<if test="userId!=0">
+			and id=#{userId}
+		</if>
+	</select>
+
+	<delete id="delUserById" parameterType="User">
+		delete from user where id=#{id}
+	</delete>
+
+	<update id="updateUser" parameterType="User">
+		UPDATE mydiningroom.user
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="userCode!=null and userCode!=''">userCode = #{userCode} ,</if>
+			<if test="userName!=null and userName!=''">userName = #{userName} , </if>
+			<if test="userPassWord!=null and userPassWord!=''">userPassWord = #{userPassWord} ,</if>
+			<if test="phone!=null and phone!=''">phone = #{phone} , </if>
+			<if test="identity!=null and identity!=''">identity = #{identity} , </if>
+		</trim>
+		WHERE
+		id = #{id} ;
+	</update>
 </mapper>

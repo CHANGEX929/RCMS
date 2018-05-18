@@ -111,11 +111,11 @@ $(function(){
 		$("#dishMenu312").stop(true,true).slideToggle();
         reset();
 	});
-	$("#dishMenu33").click(function(){
+/*	$("#dishMenu33").click(function(){
 		$("#dishMenu313").siblings().hide();
 		$("#dishMenu313").stop(true,true).slideToggle();
         reset();
-	});
+	});*/
 	$("#dishMenu34").click(function(){
 		$("#dishMenu314").siblings().hide();
 		$("#dishMenu314").stop(true,true).slideToggle();

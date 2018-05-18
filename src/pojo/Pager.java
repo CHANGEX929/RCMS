@@ -12,6 +12,24 @@ public class Pager {
 	private List list;// 数据集合
 	private Integer firstData;// 起始数据
 
+	private String userSerchName;//查询用户的名字
+	private int userId;//用户Id
+
+	public String getUserSerchName() {
+		return userSerchName;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserSerchName(String userSerchName) {
+		this.userSerchName = userSerchName;
+	}
+
 	// 计算,格式化数据
 	public void count() {
 		if (pageSize != null && pageSize != 0) {

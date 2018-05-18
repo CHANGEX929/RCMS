@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import pojo.Pager;
 import pojo.Provider;
 import pojo.User;
+import service.user.UserService;
+import tools.PagerTools;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,17 +19,45 @@ import java.util.Map;
 @Controller
 public class UserController {
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
 
     @ResponseBody
     @RequestMapping("/addUser.do")
     public Object addUser(User user){
-        return JSON.toJSONString(userMapper.addUser(user));
+        return JSON.toJSONString(userService.addUser(user));
     }
 
 
-
+    @RequestMapping("/showUserList.do")
+    public ModelAndView showUserList(ModelAndView modelAndView, Pager pager){
+        pager.setPageSize(PagerTools.deskBillPagerSize);
+        pager.setTotalCount(userService.getTotalCount(pager));
+        pager.count();
+        pager.setList(userService.showUserList(pager));
+        modelAndView.addObject("pager",pager);
+        modelAndView.setViewName("/daily/user/userList");
+        return modelAndView;
+    }
+    @RequestMapping("/delUserById.do")
+    @ResponseBody
+    public Object delUserById(User user){
+        return JSON.toJSONString(userService.delUserById(user));
+    }
+    @RequestMapping("/updateUser.do")
+    @ResponseBody
+    public Object updateUser(User user){
+        return JSON.toJSONString(userService.updateUser(user));
+    }
+    @RequestMapping("/loadUserInfoById.do")
+    public ModelAndView loadUserInfoById(ModelAndView modelAndView,Pager pager){
+        pager.setPageSize(1);
+        pager.setTotalCount(userService.getTotalCount(pager));
+        pager.count();
+        modelAndView.addObject("user",userService.showUserList(pager).get(0));
+        modelAndView.setViewName("/daily/user/updateUser");
+        return modelAndView;
+    }
 
 
 

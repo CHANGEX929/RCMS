@@ -192,4 +192,121 @@ $(function () {
     $("#resetAddUser").click(function () {
         reset();
     });
+
+    showUserList({"userSerchName":null,"pageIndex":1,"opr":"serchUser"});
+    //加载UserList
+    function showUserList(param){
+        $.ajax({
+            url:path+"/showUserList.do",
+            data:param,
+            type:"post",
+            dataType:"html",
+            success:function (data) {
+                $("#userListDiv").html(data);
+            },
+            error:function () {
+                alert("加载用户列表失败！");
+            }
+        });
+    }
+    //点击翻页按钮
+    $("#userListDiv").on("click",".userListPagerBtn",function(e){
+        var param={};
+        param.userSerchName=$(e.target).attr("userSerchName");
+        param.pageIndex=$(e.target).attr("pageIndex");
+        param.opr=$(e.target).attr("opr");
+        showUserList(param);
+    });
+    //查询用户
+    $(".serchUserBtn").click(function () {
+        var param={};
+        param.userSerchName=$("#userSerchName").val();
+        param.pageIndex=1;
+        param.opr="serchUser";
+        showUserList(param);
+    });
+    //点击更改按钮
+    $("#userListDiv").on("click",".updateUserBtn",function (e) {
+        var id=$(e.target).attr("userId");
+        loadUserInfoById(id);
+        $("#dishMenu313").siblings().hide();
+        $("#dishMenu313").stop(true,true).slideToggle();
+    });
+    //点击返回按钮
+    $(".updateUserDiv").on("click",".backUserListBtn",function(e){
+        $("#dishMenu314").siblings().hide();
+        $("#dishMenu314").stop(true,true).slideToggle();
+    });
+    //点击确认修改
+    $(".updateUserDiv").on("click",".sureUpdateBtn",function(e){
+        var param=$(e.target).parents("#updateUserForm").serialize();
+        updateUser(param);
+        $("#dishMenu314").siblings().hide();
+        $("#dishMenu314").stop(true,true).slideToggle();
+        showUserList({"userSerchName":null,"pageIndex":1,"opr":"serchUser"});
+    });
+    //点击删除按钮
+    $("#userListDiv").on("click",".delUserBtn",function (e) {
+        var id=$(this).attr("userId");
+        if(confirm("确定删除？")){
+            delUserById(id);
+        }
+    });
+    function delUserById(id){
+        $.ajax({
+            url:path+"/delUserById.do",
+            data:{"id":id},
+            dataType:"json",
+            success:function (data) {
+                if(data==1 || data=="1"){
+                   alert("删除成功");
+                    showUserList({"userSerchName":null,"pageIndex":1,"opr":"serchUser"});
+                }else{
+                    alert("删除失败");
+                }
+            },
+            error:function () {
+                alert("删除用户出现错误！");
+            }
+        });
+    }
+
+    $(".showUserListMenuBtn").click(function () {
+        showUserList({"userSerchName":null,"pageIndex":1,"opr":"serchUser"});
+    });
+    //更改用户
+    function updateUser(param){
+        $.ajax({
+            url:path+"/updateUser.do",
+            data:param,
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+                if(data==1 || data=="1"){
+                    alert("更改成功");
+                    showUserList({"userSerchName":null,"pageIndex":1,"opr":"serchUser"});
+                }else{
+                    alert("更改失败");
+                }
+            },
+            error:function () {
+                alert("更改用户出现错误！");
+            }
+        });
+    }
+    //点击更改按钮加载用户信息
+    function loadUserInfoById(id) {
+        $.ajax({
+            url:path+"/loadUserInfoById.do",
+            type:"post",
+            dataType:"html",
+            data:{"userId":id},
+            success:function (data) {
+                $(".updateUserDiv").html(data);
+            },
+            error:function () {
+                alert("加载用户信息失败！");
+            }
+        });
+    }
 });
