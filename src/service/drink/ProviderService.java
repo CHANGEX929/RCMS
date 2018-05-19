@@ -53,4 +53,14 @@ public interface ProviderService {
      * 添加供应商
      */
     public int addProvider(Provider provider);
+    //验证供应商是否存在
+    public int isProExist(String proName);
+    //查询供应商
+    public List<Provider> getProviderList(Pager pager);
+    //查询总数量
+    public int getTotalCount(Pager pager);
+    //删除供应商
+    public int delProviderById(Pager pager);
+    //更新供应商
+    public int updateProvider(Provider provider);
 }

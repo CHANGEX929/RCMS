@@ -69,4 +69,12 @@
 		WHERE
 		id = #{id} ;
 	</update>
+
+	<select id="userIsExist" parameterType="User" resultType="int">
+		select count(1) from user where 1=1
+		<if test="userCode!=null and userCode!=''">and userCode=#{userCode}</if>
+		<if test="phone!=null and phone!=''">and phone=#{phone}</if>
+		<if test="identity!=null and identity!=''">and identity=#{identity}</if>
+	</select>
+
 </mapper>

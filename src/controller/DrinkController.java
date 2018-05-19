@@ -3,6 +3,7 @@ package controller;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,6 +80,7 @@ public class DrinkController {
     @RequestMapping("/delDrinkBill.do")
     @ResponseBody
     public Object delDrinkBill(@RequestParam(required = false) String id) {
+        providerService.delDrinkSellBill(id);
         return JSON.toJSONString(providerService.delDrinkBill(id));
     }
 
@@ -149,12 +151,44 @@ public class DrinkController {
         return modelAndView;
     }
 
-
-
     //添加供应商
     @RequestMapping("/addProvider.do")
     @ResponseBody
     public Object addProvider(Provider provider){
-        return providerService.addProvider(provider);
+        return JSON.toJSONString(providerService.addProvider(provider));
+    }
+    //验证供应商是否存在
+    @RequestMapping("/isProExist.do")
+    @ResponseBody
+    public Object isProExist(@RequestParam(required = false) String proName){
+        return JSON.toJSONString(providerService.isProExist(proName));
+    }
+    //加载供应商列表
+    @RequestMapping("/showProviderList.do")
+    public ModelAndView showProviderList(ModelAndView modelAndView,Pager pager){
+        pager.setTotalCount(providerService.getTotalCount(pager));
+        pager.setPageSize(3);
+        pager.count();
+        if("".equals(pager.getOpr()) || pager.getOpr()==null){
+            modelAndView.addObject("provider",providerService.getProviderList(pager).get(0));
+            modelAndView.setViewName("daily/provider/updateProvider");
+        }else{
+            pager.setList(providerService.getProviderList(pager));
+            modelAndView.setViewName("daily/provider/providerList");
+            modelAndView.addObject("pager",pager);
+        }
+        return modelAndView;
+    }
+    //删除供应商
+    @RequestMapping("/delProviderById.do")
+    @ResponseBody
+    public Object delProviderById(Pager pager){
+        return JSON.toJSONString(providerService.delProviderById(pager));
+    }
+    //更改供应商
+    @RequestMapping("/updateProvider.do")
+    @ResponseBody
+    public Object updateProvider(Provider provider){
+        return JSON.toJSONString(providerService.updateProvider(provider));
     }
 }

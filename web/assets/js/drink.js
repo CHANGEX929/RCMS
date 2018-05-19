@@ -86,6 +86,10 @@ $(function () {
             }
         });
     }
+    $("#showSellDivBtn").click(function () {
+        getParam(0, null, 1);
+        loadDrinkSellBill(param);
+    });
     getParam(0, null, 1);
     loadDrinkSellBill(param);
     function loadDrinkSellBill(param) {
@@ -137,6 +141,7 @@ $(function () {
                     alert("删除成功！");
                     getParam(0, null, 1);
                     loadDrinkBill(param);
+                    loadDrinkSellBill(param);
                 },
                 error: function () {
                     alert("通信异常");

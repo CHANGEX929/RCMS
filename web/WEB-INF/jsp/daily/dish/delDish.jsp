@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <br>
-<div class="div-square" id="dishMenu212" style="display:none">
+<div class="" id="dishMenu212" style="display:none">
     <div class="input-group">
         <input type="text" id="serchDishName" class="form-control col-lg-10"
                placeholder="请输入菜品名称"/> <a href="javascri:;"

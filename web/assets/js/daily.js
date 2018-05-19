@@ -133,8 +133,6 @@ $(function(){
         reset();
 	});
 	$("#dishMenu43").click(function(){
-		$("#dishMenu413").siblings().hide();
-		$("#dishMenu413").stop(true,true).slideToggle();
         reset();
 	});
 	$("#dishMenu44").click(function(){

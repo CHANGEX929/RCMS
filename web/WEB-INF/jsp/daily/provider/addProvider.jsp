@@ -13,6 +13,7 @@
                                                           name="proName"
                                                           class="form-control"
                                                           placeholder="供应商名称"/>
+        <span class="input-group-addon" id="addProNameError"></span>
     </div>
     <br>
     <div class="input-group">
@@ -21,6 +22,7 @@
                                                           name="product"
                                                           class="form-control"
                                                           placeholder="主要产品"/>
+        <span class="input-group-addon" id="addProductError"></span>
     </div>
     <br>
     <div class="input-group">
@@ -29,6 +31,7 @@
                                                           name="address"
                                                           class="form-control"
                                                           placeholder="厂商地址"/>
+        <span class="input-group-addon" id="addAddressError"></span>
     </div>
     <br>
     <div class="input-group">
@@ -37,6 +40,7 @@
                                                             name="telNumber"
                                                             class="form-control"
                                                             placeholder="手机号码"/>
+        <span class="input-group-addon" id="addTelNumberError"></span>
     </div>
     <br>
     <div class="input-group">
@@ -45,14 +49,16 @@
                                                           name="contact"
                                                           class="form-control"
                                                           placeholder="联系人"/>
+        <span class="input-group-addon" id="addContactError"></span>
     </div>
     <br>
     <div class="input-group">
         <span class="input-group-addon">电话号码：</span> <input type="text"
-                                                           id="phone"
+                                                           id="proPhone"
                                                            name="phone"
                                                            class="form-control"
                                                            placeholder="电话号码"/>
+        <span class="input-group-addon" id="addProPhoneError"></span>
     </div>
     <br>
     <div class="input-group">
@@ -61,6 +67,7 @@
                                                            name="remark"
                                                            class="form-control"
                                                            placeholder="备注"/>
+        <span class="input-group-addon" id="addRemarkError"></span>
     </div>
     <br>
     <div class="input-group col-lg-12">
@@ -68,7 +75,7 @@
             <a href="javascript:;" class="btn btn-success" id="addGongying">确认添加</a>
         </div>
         <div class=" col-lg-6 ">
-            <button type="reset" class="btn btn-warning" id="cancel">重置</button>
+            <button type="reset" class="btn btn-warning" id="resetAddProviderFormBtn">重置</button>
         </div>
     </div>
     <br>

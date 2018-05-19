@@ -160,7 +160,7 @@
     </select>
 
     <delete id="delDrinkSellBill" parameterType="String">
-        delete from drink_sell_bill where id=#{id}
+        delete from drink_sell_bill where drinkbillId=#{drinkbillId}
     </delete>
 
     <select id="getSuplusDrinkBill" resultMap="supLusDrinkBillMap" parameterType="DrinkBillPager">
@@ -228,5 +228,65 @@
             now()
             );
     </insert>
+
+    <select id="isProExist" resultType="int" parameterType="String">
+        select count(1) from provider where proName=#{proName}
+    </select>
+
+    <select id="getProviderList" resultType="Provider" parameterType="Pager">
+        SELECT 	id,
+            proName,
+            product,
+            telNumber,
+            address,
+            contact,
+            phone,
+            remark,
+            createDate
+            FROM
+            mydiningroom.provider
+            where 1=1
+            <if test="serchProName !=null and serchProName!=''">
+                and proName like concat('%',#{serchProName},'%')
+                or product like concat('%',#{serchProName},'%')
+            </if>
+            <if test="proId !=0">
+                and id=#{proId}
+            </if>
+            order by createDate desc
+            LIMIT #{firstData}, #{pageSize}
+    </select>
+    <select id="getTotalCount" parameterType="Pager" resultType="int">
+        SELECT count(1)
+        FROM
+        mydiningroom.provider
+        where 1=1
+        <if test="serchProName !=null and serchProName!=''">
+            and proName like concat('%',#{serchProName},'%')
+            or product like concat('%',#{serchProName},'%')
+        </if>
+        <if test="proId !=0">
+            and id=#{proId}
+        </if>
+    </select>
+
+    <delete id="delProviderById" parameterType="Pager">
+        delete from provider where id=#{proId}
+    </delete>
+
+    <update id="updateProvider" parameterType="Provider">
+        UPDATE mydiningroom.provider
+            <trim prefix="set" suffixOverrides=",">
+                <if test="proName!=null and proName!=''"> proName = #{proName} ,</if>
+                <if test="product!=null and product!=''"> product =#{product} ,</if>
+                <if test="telNumber!=null and telNumber!=''">telNumber = #{telNumber} ,</if>
+                <if test="address!=null and address!=''">address = #{address} ,</if>
+                <if test="contact!=null and contact!=''">contact = #{contact} ,</if>
+                <if test="phone!=null and phone!=''">phone = #{phone} ,</if>
+                <if test="remark!=null and remark!=''">remark = #{remark} ,</if>
+            </trim>
+            WHERE
+            id = #{id} ;
+    </update>
 
 </mapper>

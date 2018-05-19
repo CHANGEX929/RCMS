@@ -41,7 +41,7 @@
 		<!-- 导航 -->
 		<ul class="nav nav-tabs ">
 			<li class="active"><a href="#today" data-toggle="tab">进货信息</a></li>
-			<li><a href="#xiaoshou" data-toggle="tab">销售信息</a></li>
+			<li><a href="#xiaoshou" id="showSellDivBtn" data-toggle="tab">销售信息</a></li>
 			<li><a href="#shengyu" data-toggle="tab">剩余信息</a></li>
 		</ul>
 		<!-- /导航 -->

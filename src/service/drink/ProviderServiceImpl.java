@@ -73,4 +73,29 @@ public class ProviderServiceImpl implements ProviderService{
     public int addProvider(Provider provider) {
         return providerMapper.addProvider(provider);
     }
+
+    @Override
+    public int isProExist(String proName) {
+        return providerMapper.isProExist(proName);
+    }
+
+    @Override
+    public List<Provider> getProviderList(Pager pager) {
+        return providerMapper.getProviderList(pager);
+    }
+
+    @Override
+    public int getTotalCount(Pager pager) {
+        return providerMapper.getTotalCount(pager);
+    }
+
+    @Override
+    public int delProviderById(Pager pager) {
+        return providerMapper.delProviderById(pager);
+    }
+
+    @Override
+    public int updateProvider(Provider provider) {
+        return providerMapper.updateProvider(provider);
+    }
 }

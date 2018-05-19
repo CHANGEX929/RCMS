@@ -86,12 +86,12 @@
                     <div class="row text-center pad-top" id="dishMenu22">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="div-square weihu">
-                                <a href="javascript:;" id="showDelBtn"><h4>删除菜品</h4></a>
+                                <a href="javascript:;" id="showDelBtn"><h4>查看菜品</h4></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-collapse col-lg-8">
+                <div class="sidebar-collapse div-square col-lg-8">
                     <!-- 添加菜品 -->
                     <%@ include file="dish/addDish.jsp" %>
                     <!-- 删除菜品 -->
@@ -136,7 +136,7 @@
                                    placeholder="请输入桌位编号"/> <a href="javascript:;"
                                                               class="input-group-addon" id="searchDesk">查找桌位</a>
                         </div>
-                        <div class="col-lg-12" id="searchTabResult">
+                        <div  id="searchTabResult">
                             <%@include file="desk/deskList.jsp" %>
                         </div>
                     </div>
@@ -209,24 +209,17 @@
                     <div class="row text-center pad-top" id="dishMenu41">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="div-square weihu" id="dishMenu2-1">
-                                <a href="javascript:;"><h4>添加供应商</h4></a>
+                                <a href="javascript:;" id="showAddProviderBtn"><h4>添加供应商</h4></a>
                             </div>
                         </div>
                     </div>
-                    <div class="row text-center pad-top" id="dishMenu42">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="div-square weihu">
-                                <a href="javascript:;"><h4>删除供应商</h4></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row text-center pad-top" id="dishMenu43">
+              <%--      <div class="row text-center pad-top" id="dishMenu43">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="div-square weihu">
                                 <a href="javascript:;"><h4>更改供应商</h4></a>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="row text-center pad-top" id="dishMenu44">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="div-square weihu">
@@ -240,95 +233,23 @@
                     <div class="div-square" id="dishMenu411">
                         <%@include file="provider/addProvider.jsp"%>
                     </div>
-                    <br>
-                    <div class="div-square" id="dishMenu412" style="display:none">
-                        <div class="input-group">
-                            <input type="text" class="form-control col-lg-10"
-                                   placeholder="请输入供应商编号或名称"/> <a href="#"
-                                                                  class="input-group-addon"
-                                                                  id="searchGongying">查找供应商</a>
-                        </div>
-                        <div class="col-lg-12" style="display:none"
-                             id="searchGongyingResult">
-                            <div class="col-lg-12">
-                                <br>
-                                <h3>查询结果</h3>
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>厂商编号</th>
-                                        <th>厂商名称</th>
-                                        <th>厂商类型</th>
-                                        <th>厂商地址</th>
-                                        <th>厂商电话</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>空</td>
-                                        <td>空</td>
-                                        <td>空</td>
-                                        <td>空</td>
-                                        <td>空</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-lg-12">
-                                <br> <a href="#" class="btn btn-danger btn-lg btn-block"
-                                        id="delDish" id="delGongying">删除供应商</a>
-                            </div>
-                        </div>
-                    </div>
                     <!-- 更改供应商 -->
                     <br>
-                    <div class="div-square" id="dishMenu413" style="display:none">
-                        <div class="input-group">
-                            <input type="text" class="form-control col-lg-10"
-                                   placeholder="请输入供应商编号或名称"/> <a href="#"
-                                                                  class="input-group-addon"
-                                                                  id="searchGongying1">查找供应商</a>
-                        </div>
-                        <div class="col-lg-12" style="display:none" id="changeGongying">
-                            <div class="col-lg-12">
-                                <br>
-                                <h3>查询结果</h3>
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>厂商编号</th>
-                                        <th>厂商名称</th>
-                                        <th>厂商类型</th>
-                                        <th>厂商地址</th>
-                                        <th>厂商电话</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>空</td>
-                                        <td>空</td>
-                                        <td>空</td>
-                                        <td>空</td>
-                                        <td>空</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="div-square loadProviderInfoDiv" id="dishMenu413" style="display:none">
                     </div>
                     <!-- 查看供应商 -->
                     <br>
                     <div class="" id="dishMenu414" style="display:none">
-                        <div class="col-lg-12">
-                            <ul class="nav nav-tabs ">
-                                <h5>查看供应商</h5>
-                                <li class="active"><a href="#all" data-toggle="tab">全部</a></li>
-                                <li><a href="#soup" data-toggle="tab">汤类</a></li>
-                                <li><a href="#fry" data-toggle="tab">炒菜</a></li>
-                                <li><a href="#drink" data-toggle="tab">酒水</a></li>
-                                <li><a href="#other" data-toggle="tab">其它</a></li>
-                            </ul>
+                        <div class="input-group">
+                            <input type="text" id="proSerchName" class="form-control col-lg-10"
+                                   placeholder="请供应商名或供应产品名"/> <a href="javascript:;"
+                                                                 class="input-group-addon serchProviderBtn">查找供应商</a>
                         </div>
+                        <br/>
+                        <div id="providerListDiv">
+
+                        </div>
+
                     </div>
                 </div>
             </div>

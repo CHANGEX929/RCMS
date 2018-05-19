@@ -15,6 +15,25 @@ public class Pager {
 	private String userSerchName;//查询用户的名字
 	private int userId;//用户Id
 
+	private String serchProName;//查询供应商的名字
+	private int proId;//供应商ID
+
+	public String getSerchProName() {
+		return serchProName;
+	}
+
+	public void setSerchProName(String serchProName) {
+		this.serchProName = serchProName;
+	}
+
+	public int getProId() {
+		return proId;
+	}
+
+	public void setProId(int proId) {
+		this.proId = proId;
+	}
+
 	public String getUserSerchName() {
 		return userSerchName;
 	}
@@ -32,6 +51,9 @@ public class Pager {
 
 	// 计算,格式化数据
 	public void count() {
+		if(totalCount<=0){
+			totalCount=1;
+		}
 		if (pageSize != null && pageSize != 0) {
 			pageCount = totalCount % pageSize == 0 ? totalCount / pageSize
 					: totalCount / pageSize + 1;	

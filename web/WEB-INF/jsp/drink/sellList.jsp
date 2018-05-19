@@ -14,8 +14,8 @@
         <th class="text-center">订单编号</th>
         <th class="text-center">销售数量</th>
         <th class="text-center">销售单价</th>
-        <th class="text-center">总计</th>
-        <th class="text-center">操作</th>
+        <th class="text-center">总计</th><%--
+        <th class="text-center">操作</th>--%>
     </tr>
     </thead>
     <tbody>
@@ -26,7 +26,7 @@
                 <td class="text-center">${drinkSellBill.sellCount}</td>
                 <td class="text-center">￥${drinkSellBill.sellPrice}</td>
                 <td class="text-center">￥${drinkSellBill.sellPrice*drinkSellBill.sellCount}</td>
-                <td class="text-center"><a class="btn btn-danger delDrinkSellBill" drinkSellBillId="${drinkSellBill.id}">删除</a></td>
+                <%--<td class="text-center"><a class="btn btn-danger delDrinkSellBill" drinkSellBillId="${drinkSellBill.id}">删除</a></td>--%>
             </tr>
         </c:forEach>
     </tbody>

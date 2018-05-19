@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div class="div-square" id="dishMenu211">
+<div class="" id="dishMenu211">
     <p class="text-center h2">添加菜品</p>
     <form action="javascript:;">
         <%--        <div class="input-group">

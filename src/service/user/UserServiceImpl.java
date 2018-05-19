@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService{
 		return userMapper.addUser(user);
 	}
 
-	/*	@Override
+	@Override
 	public int userIsExist(User user) {
 		return userMapper.userIsExist(user);
-	}*/
+	}
 
 	@Override
 	public List<User> showUserList(Pager pager) {

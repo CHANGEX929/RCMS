@@ -64,7 +64,7 @@ public class UserController {
 
 
 
-/*    @ResponseBody
+    @ResponseBody
     @RequestMapping("/userIsExist.do")
     public Object userIsExist(User user){
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -74,14 +74,14 @@ public class UserController {
         int identityFlag=-1;
         int userCodeFlag=-1;
         if(user.getUserCode()!=null && !user.getUserCode().equals("")){
-            userCodeFlag=userMapper.userIsExist(user);
+            userCodeFlag=userService.userIsExist(user);
         }
-        if(user.getIdentity()!=null && "".equals(user.getIdentity())){
-            identityFlag=userMapper.userIsExist(user);
+        if(user.getIdentity()!=null && !"".equals(user.getIdentity())){
+            identityFlag=userService.userIsExist(user);
         }
-        if(user.getPhone()!=null && "".equals(user.getPhone())){
-            phoneFlag=userMapper.userIsExist(user);
+        if(user.getPhone()!=null && !"".equals(user.getPhone())){
+            phoneFlag=userService.userIsExist(user);
         }
         return "{\"userCodeFlag\":\""+userCodeFlag+"\",\"phoneFlag\":\""+phoneFlag+"\",\"identityFlag\":\""+identityFlag+"\"}";
-    }*/
+    }
 }
