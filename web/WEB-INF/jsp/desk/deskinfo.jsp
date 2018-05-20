@@ -100,7 +100,10 @@
 									href="${pageContext.request.contextPath}/desklist.html?show=desk"
 									class="btn btn-default"> 返回 </a></li>
 								<li class="next"><a class="btn btn-warning " id="diancai" style="background-color: #D9534F; color:#FFFFFF;">
-										点菜 </a> <a class="btn btn-default " id="payBtn" data-toggle="modal" 
+										点菜 </a>
+									<a class="btn btn-warning "  style="background-color: deepskyblue; color:#FFFFFF;">
+										打印 </a>
+									<a class="btn btn-default " id="payBtn" data-toggle="modal"
 										style="background-color: #5CB85C;color:#FFFFFF;
 										display:<c:if test="${empty deskDish or fn:length(deskDish) eq 0 }">none</c:if>
 										;"

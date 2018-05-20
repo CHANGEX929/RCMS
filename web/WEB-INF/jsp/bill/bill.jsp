@@ -199,7 +199,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<!-- <a type="button" class="btn btn-danger" href="#">更改</a> -->
+						<button type="button" class="btn btn-danger" >打印</button>
 					</div>
 				</div>
 			</div>
