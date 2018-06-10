@@ -7,16 +7,16 @@ $(function() {
 					dateType:"json",
 					success:function(data){
 						var categories=new Array();
-						var y=new Array();
+						/*var y=new Array();*/
 						var points=new Array();
 						var realMoney=new Array();
 						for ( var i = 0; i < data.length; i++) {
 							categories[i]=data[i].todayDate;
-							y[i]=data[i].realMoney;
+							/*y[i]=data[i].realMoney;*/
 							points[i]=data[i].totalMoney;
 							realMoney[i]=data[i].realMoney;
 						}
-						y.sort(function(a,b){return a-b});
+						/*y.sort(function(a,b){return a-b});*/
 						var title = {
 								text : '近30天账单曲线图'
 							};
@@ -29,8 +29,7 @@ $(function() {
 							var yAxis = {
 								title : {
 									text : '金额 (\元)'
-								},
-								tickPositions :y
+								}
 							};
 
 							var tooltip = {

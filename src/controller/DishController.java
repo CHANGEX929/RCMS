@@ -73,6 +73,9 @@ public class DishController {
         if (addFlag) {//添加成功时
             //刷新缓存
             redisUtil.del("allDishes");
+            redisUtil.addList("allDishes",dishService.getDish());
+            Dishes dishes = Dishes.getDishes();
+            dishes.setAllDish(redisUtil.getList("allDishes"));
             return JSON.toJSONString("OK");
         } else {
             return "{'fifleFlag':'" + fifleFlag + "'}";
@@ -114,7 +117,6 @@ public class DishController {
         pager.setTotalCount(dishes.getAllDishCount());
         if ("serchDish".equals(pager.getOpr())) {//优先查询
             pager.setPageSize(dishes.getAllDishCount());//搜索时把所有菜品全部查出
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~" + dishName);
         }
         pager.count();
         List<Dish> list = dishes.getAllDish(pager);
