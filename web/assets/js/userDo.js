@@ -498,7 +498,9 @@ $(function () {
 
 
     //加载供应商列表
-    showProviderList({"opr":"serchPro","pageIndex":1,"serchProName":null});
+    $("#dishMenu44").click(function(){
+        showProviderList({"opr":"serchPro","pageIndex":1,"serchProName":null});
+    });
     $("#providerListDiv").on("click",".providerListPagerBtn",function (e) {
         var pageIndex=$(e.target).attr("pageIndex");
         var opr=$(e.target).attr("opr");
