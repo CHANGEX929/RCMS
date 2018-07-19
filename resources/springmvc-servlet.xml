@@ -77,5 +77,5 @@
 			<aop:before method="before" pointcut-ref="pointcut1"></aop:before>
 			<aop:after-returning method="afterReturning" pointcut-ref="pointcut1"></aop:after-returning>
 		</aop:aspect>
-	</aop:config>asd
+	</aop:config>
 </beans>
