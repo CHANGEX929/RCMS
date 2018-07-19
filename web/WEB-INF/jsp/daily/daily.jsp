@@ -223,7 +223,7 @@
                     <div class="row text-center pad-top" id="dishMenu44">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="div-square weihu">
-                                <a href="javascript:;"><h4>查看供应商</h4></a>
+                                <a href="javascript:;" ><h4>查看供应商</h4></a>
                             </div>
                         </div>
                     </div>

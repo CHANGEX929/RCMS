@@ -21,7 +21,12 @@ public class LoginController {
 	public String showLogin(){
 		return "login";
 	}
-	
+
+	@RequestMapping(value="/",method=RequestMethod.GET)
+	public String showIndex(){
+		return "login";
+	}
+
 	//处理登录
 	@RequestMapping(value="login.html",method=RequestMethod.POST)
 	public String doLogin(User user,HttpSession session,Model model){

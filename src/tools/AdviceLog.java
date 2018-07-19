@@ -1,17 +1,8 @@
 package tools;
 
 
-import netscape.security.Privilege;
-import org.aopalliance.intercept.Joinpoint;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.springframework.stereotype.Component;
-import pojo.User;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * 日志增强

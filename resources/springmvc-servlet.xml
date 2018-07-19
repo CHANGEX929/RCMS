@@ -71,4 +71,11 @@
 			<aop:after-returning method="afterReturning" pointcut-ref="pointcut"></aop:after-returning>
 		</aop:aspect>
 	</aop:config>
+	<aop:config >
+		<aop:pointcut id="pointcut1" expression="execution(* service..*.*(..))"></aop:pointcut>
+		<aop:aspect ref="theLogger">
+			<aop:before method="before" pointcut-ref="pointcut1"></aop:before>
+			<aop:after-returning method="afterReturning" pointcut-ref="pointcut1"></aop:after-returning>
+		</aop:aspect>
+	</aop:config>
 </beans>
